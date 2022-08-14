@@ -8,4 +8,4 @@ export const logInApi = async (config) => {
         throw new Error(error)
     }
 }
-export const logOutApi = httpRequest.get('/iomr2egc/logout')
+export const logOutApi = () => httpRequest.get('/iomr2egc/logout')

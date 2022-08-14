@@ -1,4 +1,3 @@
-import store from '@/store'
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
@@ -25,7 +24,8 @@ const router = new VueRouter({
 
 router.beforeEach(async (to, from, next) => {
     //if user is not logged in, redirect to the login page
-    if (to.name !== 'login' && !store.getters.isAuthenticated) {
+    console.log(JSON.parse(localStorage?.getItem('user')))
+    if (to.name !== 'login' && localStorage?.getItem('user') === null) {
         next({ name: 'login' })
     } else {
         console.log('else')
