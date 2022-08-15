@@ -54,7 +54,6 @@
 import Header from '@/components/Header.vue'
 import { getConnections } from '@/plugins/httpRequest/connectionApi'
 import { getDevices } from '@/plugins/httpRequest/deviceApi'
-import { convertTimeStampToDateTime } from '@/plugins/funcs/date'
 export default {
     name: 'Home',
     data() {

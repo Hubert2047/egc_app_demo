@@ -54,8 +54,6 @@
 </template>
 
 <script>
-import { loginApi } from '@/plugins/httpRequest/authApi'
-import sha512 from 'js-sha512'
 export default {
     data() {
         return {
@@ -100,7 +98,7 @@ export default {
                 })
                 //save current user to localStorage then router can check if user log in
                 localStorage.setItem('user', JSON.stringify(res.data))
-                this.$router.push('/home')
+                this.$router.push('/device')
             } catch (error) {
                 this.errorMsg = error.response.data?.msg ? error.response.data.msg : 'Network Error !'
             } finally {
