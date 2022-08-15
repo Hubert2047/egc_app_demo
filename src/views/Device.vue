@@ -10,7 +10,7 @@
                             placeholder="設備名稱、連線名稱、廠牌"
                             clearable
                             v-model="searchWord"
-                            class="border-top-0"
+                            class="shadow-sm"
                         >
                             <template slot="prepend">搜尋</template>
                         </el-input>
@@ -19,26 +19,32 @@
             </div>
             <!-- action box -->
             <div class="actions d-flex justify-content-start">
-                <el-button type="primary" size="small" class="mt-3 mb-2 p-1" @click="handleReloadDevice">
-                    <b-icon v-if="isReloadingDevice" icon="arrow-repeat" animation="spin" font-scale="1.5"></b-icon>
-                    <b-icon v-else icon="arrow-repeat" font-scale="1.5"></b-icon>
-                </el-button>
+                <el-tooltip class="item" effect="dark" content="重新刷新資料" placement="top-start">
+                    <el-button type="primary" size="small" class="mt-3 mb-2 p-1 shadow" @click="handleReloadDevice">
+                        <b-icon v-if="isReloadingDevice" icon="arrow-repeat" animation="spin" font-scale="1.5"></b-icon>
+                        <b-icon v-else icon="arrow-repeat" font-scale="1.5"></b-icon>
+                    </el-button>
+                </el-tooltip>
             </div>
             <!-- device table -->
             <el-table
                 border
                 max-height="500px"
+                class="shadow-sm"
                 highlight-current-row
                 :data="displayDeviceData"
                 :default-sort="{ prop: 'name', order: 'descending' }"
             >
-                <el-table-column prop="number" label="設備編號" sortable min-width="150"> </el-table-column>
-                <el-table-column prop="name" label="設備名稱" sortable min-width="150"> </el-table-column>
-                <el-table-column prop="ip" label="IP" sortable min-width="150"> </el-table-column>
-                <el-table-column prop="port" label="Port" sortable min-width="120"> </el-table-column>
-                <el-table-column prop="connectionName" label="連線名稱" sortable width="150"> </el-table-column>
-                <el-table-column prop="brand" label="廠牌" sortable min-width="120"> </el-table-column>
-                <el-table-column prop="connectionStatus" label="狀態" sortable min-width="120"> </el-table-column>
+                <el-table-column prop="number" align="center" label="設備編號" sortable min-width="150">
+                </el-table-column>
+                <el-table-column prop="name" align="center" label="設備名稱" sortable min-width="150">
+                </el-table-column>
+                <el-table-column prop="ip" align="center" label="IP" sortable min-width="150"> </el-table-column>
+                <el-table-column prop="port" align="center" label="Port" sortable min-width="120"> </el-table-column>
+                <el-table-column prop="connectionName" align="center" label="連線名稱" sortable width="150">
+                </el-table-column>
+                <el-table-column prop="brand" align="center" label="廠牌" sortable min-width="120"> </el-table-column>
+                <el-table-column prop="status" align="center" label="狀態" sortable min-width="120"> </el-table-column>
             </el-table>
         </div>
     </div>
@@ -48,6 +54,7 @@
 import Header from '@/components/Header.vue'
 import { getConnections } from '@/plugins/httpRequest/connectionApi'
 import { getDevices } from '@/plugins/httpRequest/deviceApi'
+import { convertTimeStampToDateTime } from '@/plugins/funcs/date'
 export default {
     name: 'Home',
     data() {
@@ -79,9 +86,10 @@ export default {
                         ...device,
                         ip: connectionById[device.conId].ip,
                         connectionName: connectionById[device.conId].name,
-                        connectionStatus: connectionById[device.conId].status === 1 ? '連線' : '斷線',
+                        status: device.status == 1 ? '正常' : '停機/斷線',
                     }
                 })
+                console.log(devices, connections)
             } catch (error) {
                 this.$notify.error({
                     title: '提示訊息',

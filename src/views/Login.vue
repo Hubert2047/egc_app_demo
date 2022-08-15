@@ -11,7 +11,7 @@
                     :hide-required-asterisk="true"
                     ref="loginForm"
                     :model="loginData"
-                    @submit="handleSubmitLogin"
+                    @submit.prevent="handleSubmitLogin"
                 >
                     <!-- account input-->
                     <el-form-item label="帳號" prop="account" :rules="[{ required: true, message: '帳號必須填滿' }]">
@@ -38,7 +38,14 @@
                     <p :style="{ color: 'red', 'text-transform': 'capitalize' }" v-if="hasError">{{ errorMsg }}</p>
                     <!-- submit -->
                     <el-form-item class="ms-0 d-flex justify-content-start">
-                        <el-button :loading="loading" type="primary" @click="handleSubmitLogin">登入</el-button>
+                        <el-button
+                            native-type="submit"
+                            :loading="loading"
+                            type="primary"
+                            class="shadow"
+                            @click="handleSubmitLogin"
+                            >登入</el-button
+                        >
                     </el-form-item>
                 </el-form>
             </div>

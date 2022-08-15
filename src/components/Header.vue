@@ -1,14 +1,21 @@
 <template>
-    <div class="container-fluid bg-primary p-2 px-lg-4 d-flex">
-        <!-- brand -->
-        <p class="mb-0 align-self-center text-white">AIoM Solution</p>
+    <div class="container-fluid bg-primary p-2 px-lg-4 d-flex align-items-center">
+        <div>bar</div>
         <!-- user setting -->
-        <el-dropdown @command="handleCommand" trigger="click" class="ms-auto d-flex align-items-center">
-            <el-avatar :src="'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'"></el-avatar>
-            <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item command="logout">登出</el-dropdown-item>
-            </el-dropdown-menu>
-        </el-dropdown>
+        <div class="row">
+            <div class="col">
+                <!-- brand -->
+                <p class="mb-0 align-self-center text-white">AIoM Solution</p>
+            </div>
+            <div class="col">
+                <el-dropdown @command="handleCommand" trigger="click" class="ms-auto d-flex align-items-center">
+                    <el-avatar :src="'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'"></el-avatar>
+                    <el-dropdown-menu slot="dropdown">
+                        <el-dropdown-item command="logout">登出</el-dropdown-item>
+                    </el-dropdown-menu>
+                </el-dropdown>
+            </div>
+        </div>
     </div>
 </template>
 <script>
