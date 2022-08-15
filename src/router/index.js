@@ -12,6 +12,10 @@ const routes = [
         component: Home,
     },
     {
+        path: '/',
+        component: Home,
+    },
+    {
         path: '/login',
         name: 'login',
         component: Login,
@@ -23,12 +27,12 @@ const router = new VueRouter({
 })
 
 router.beforeEach(async (to, from, next) => {
+    // console.log('run')
+    // console.log(localStorage?.getItem('user'))
     //if user is not logged in, redirect to the login page
-    console.log(JSON.parse(localStorage?.getItem('user')))
     if (to.name !== 'login' && localStorage?.getItem('user') === null) {
         next({ name: 'login' })
     } else {
-        console.log('else')
         next()
     }
 })
