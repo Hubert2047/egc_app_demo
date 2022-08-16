@@ -28,8 +28,6 @@ const router = new VueRouter({
 })
 
 router.beforeEach(async (to, from, next) => {
-    // console.log('run')
-    // console.log(localStorage?.getItem('user'))
     //if user is not logged in, redirect to the login page
     if (to.name !== 'login' && localStorage?.getItem('user') === null) {
         next({ name: 'login' })

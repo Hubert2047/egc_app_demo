@@ -1,16 +1,16 @@
 <template>
-    <div class="container-fluid bg-primary p-2 px-lg-4">
+    <div class="container-fluid bg-primary p-3 px-lg-4">
         <div class="row w-100 align-items-center m-0">
             <div class="ps-0 col-2 col-sm-4 d-flex justify-content-start">
-                <el-button
-                    type="info"
+                <!-- <el-button
+                    type="primary"
                     :style="{ 'font-size': '25px' }"
                     class="px-2 py-1 shadow-sm"
                     title="Align left"
                     size="small"
                 >
-                    <b-icon class="text-white" icon="text-left"></b-icon>
-                </el-button>
+                    <b-icon class="text-white" icon="text-left"></b-icon> -->
+                <!-- </el-button> -->
             </div>
             <!-- brand -->
             <div class="col-8 col-sm-4">
@@ -32,7 +32,7 @@
     </div>
 </template>
 <script>
-import { logoutApi } from '@/plugins/httpRequest/authApi'
+import { logoutApi } from '@/plugins/httpRequest/authRequest'
 export default {
     methods: {
         handleCommand(command) {

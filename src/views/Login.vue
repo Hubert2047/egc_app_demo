@@ -54,6 +54,8 @@
 </template>
 
 <script>
+import { loginApi } from '@/plugins/httpRequest/authRequest'
+import { sha512 } from 'js-sha512'
 export default {
     data() {
         return {
@@ -100,7 +102,7 @@ export default {
                 localStorage.setItem('user', JSON.stringify(res.data))
                 this.$router.push('/device')
             } catch (error) {
-                this.errorMsg = error.response.data?.msg ? error.response.data.msg : 'Network Error !'
+                this.errorMsg = error.response?.data?.msg ? error.response.data.msg : 'Network Error !'
             } finally {
                 this.loading = false
             }

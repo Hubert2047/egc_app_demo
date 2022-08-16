@@ -18,9 +18,11 @@
                 </div>
             </div>
             <!-- action box -->
+
             <div class="actions d-flex justify-content-start">
-                <el-tooltip class="item" effect="dark" content="重新刷新資料" placement="top-start">
-                    <el-button type="primary" size="small" class="mt-3 mb-2 p-1 shadow" @click="handleReloadDevice">
+                <!-- reload btn -->
+                <el-tooltip class="item" effect="dark" content="重新資料" placement="top-start">
+                    <el-button type="primary" class="mt-3 mb-2 p-1 shadow" @click="handleReloadDevice">
                         <b-icon v-if="isReloadingDevice" icon="arrow-repeat" animation="spin" font-scale="1.5"></b-icon>
                         <b-icon v-else icon="arrow-repeat" font-scale="1.5"></b-icon>
                     </el-button>
@@ -52,8 +54,8 @@
 
 <script>
 import Header from '@/components/Header.vue'
-import { getConnections } from '@/plugins/httpRequest/connectionApi'
-import { getDevices } from '@/plugins/httpRequest/deviceApi'
+import connectionRequest from '@/plugins/httpRequest/connectionRequest'
+import deviceRequest from '@/plugins/httpRequest/deviceRequest'
 export default {
     name: 'Home',
     data() {
@@ -69,7 +71,7 @@ export default {
                 return (
                     this.searchWord === '' ||
                     device.name.toLowerCase().includes(this.searchWord.toLowerCase().trim()) ||
-                    device.number.toLowerCase().includes(this.searchWord.toLowerCase().trim()) ||
+                    device.connectionName.toLowerCase().includes(this.searchWord.toLowerCase().trim()) ||
                     device.brand.toLowerCase().includes(this.searchWord.toLowerCase().trim())
                 )
             })
@@ -78,7 +80,7 @@ export default {
     methods: {
         async handleGetDevices() {
             try {
-                const [devices, connections] = await Promise.all([getDevices(), getConnections()])
+                const [devices, connections] = await Promise.all([deviceRequest.get(), connectionRequest.get()])
                 const connectionById = this.getConnectionById(connections)
                 this.deviceData = devices.map((device) => {
                     return {
@@ -88,7 +90,7 @@ export default {
                         status: device.status == 1 ? '正常' : '停機/斷線',
                     }
                 })
-                console.log(devices, connections)
+                // console.log(devices, connections)
             } catch (error) {
                 this.$notify.error({
                     title: '提示訊息',
@@ -104,7 +106,7 @@ export default {
             this.isReloadingDevice = false
         },
         getConnectionById(connections) {
-            //transform connections array to an boject, with each key of item = id of item
+            //transform connections array to an object, with each key of item = id of item
             let connectionById = {}
             connections.forEach((connection) => {
                 connectionById[connection.id] = connection
